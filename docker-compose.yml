@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/usr/src/app
+    expose:
+      - 8000
+
+    ports:
+      - 8180:8000
+
+  frontend:
+    image: node:18.2.0
+    command: bash -c "npm install && npm run dev -- --host"
+    # user: "$(id -u):$(id -g)"
+    working_dir: /opt/front
+    volumes:
+      - ./frontend:/opt/front
+
+    ports:
+      - "5173:5173"
+
+  frontend2:
+    image: node:18.2.0
+    command: bash -c "npm install && npm run dev -- --host"
+    # user: "$(id -u):$(id -g)"
+    working_dir: /opt/front
+    volumes:
+      - ./frontend:/opt/front
+
+    ports:
+      - "5174:5173"
